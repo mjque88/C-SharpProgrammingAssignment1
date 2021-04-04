@@ -75,7 +75,8 @@ namespace Wood_Stocks_App
             // 
             // btnImportCSV
             // 
-            this.btnImportCSV.Location = new System.Drawing.Point(394, 15);
+            this.btnImportCSV.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnImportCSV.Location = new System.Drawing.Point(415, 15);
             this.btnImportCSV.Name = "btnImportCSV";
             this.btnImportCSV.Size = new System.Drawing.Size(100, 45);
             this.btnImportCSV.TabIndex = 3;
@@ -85,7 +86,9 @@ namespace Wood_Stocks_App
             // 
             // btnSaveCSV
             // 
-            this.btnSaveCSV.Location = new System.Drawing.Point(521, 15);
+            this.btnSaveCSV.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSaveCSV.AutoSize = true;
+            this.btnSaveCSV.Location = new System.Drawing.Point(540, 15);
             this.btnSaveCSV.Name = "btnSaveCSV";
             this.btnSaveCSV.Size = new System.Drawing.Size(100, 45);
             this.btnSaveCSV.TabIndex = 4;
@@ -95,7 +98,9 @@ namespace Wood_Stocks_App
             // 
             // btnExit
             // 
-            this.btnExit.Location = new System.Drawing.Point(646, 15);
+            this.btnExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnExit.AutoSize = true;
+            this.btnExit.Location = new System.Drawing.Point(664, 15);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(100, 45);
             this.btnExit.TabIndex = 5;
@@ -105,6 +110,9 @@ namespace Wood_Stocks_App
             // 
             // dgvStocklist
             // 
+            this.dgvStocklist.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvStocklist.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvStocklist.Location = new System.Drawing.Point(12, 104);
             this.dgvStocklist.Name = "dgvStocklist";
@@ -135,16 +143,18 @@ namespace Wood_Stocks_App
             // 
             // txtFilename
             // 
+            this.txtFilename.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtFilename.Location = new System.Drawing.Point(86, 73);
             this.txtFilename.Name = "txtFilename";
-            this.txtFilename.Size = new System.Drawing.Size(660, 20);
+            this.txtFilename.Size = new System.Drawing.Size(678, 20);
             this.txtFilename.TabIndex = 8;
             this.txtFilename.TextChanged += new System.EventHandler(this.txtFilename_TextChanged);
             // 
             // frmWoodStocksInventory
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(776, 450);
             this.Controls.Add(this.txtFilename);
             this.Controls.Add(this.lblFilename);
@@ -155,6 +165,7 @@ namespace Wood_Stocks_App
             this.Controls.Add(this.lblSaveCSV);
             this.Controls.Add(this.lblImportCSV);
             this.Controls.Add(this.lblWelcome);
+            this.MinimumSize = new System.Drawing.Size(792, 489);
             this.Name = "frmWoodStocksInventory";
             this.Text = "Wood Stocks Inventory";
             ((System.ComponentModel.ISupportInitialize)(this.dgvStocklist)).EndInit();

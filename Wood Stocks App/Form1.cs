@@ -15,10 +15,9 @@ namespace Wood_Stocks_App
 
         private void btnImportCSV_Click(object sender, EventArgs e)
         {
-            txtFilename.Text = openFileDialog1.FileName;
-           
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
+                txtFilename.Text = openFileDialog1.FileName;
                 openFileDialog1.InitialDirectory = "C:\\StockFile";
                 openFileDialog1.RestoreDirectory = true;
                 string strFileName = openFileDialog1.FileName;
@@ -31,6 +30,8 @@ namespace Wood_Stocks_App
             }
         }
 
+        
+        //Need to create new Class instead of being in Form1?
         private void LoadData(string strFilePath)
         {
             DataTable dt = new DataTable();
