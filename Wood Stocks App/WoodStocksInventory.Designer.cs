@@ -35,10 +35,12 @@ namespace Wood_Stocks_App
             this.btnImportCSV = new System.Windows.Forms.Button();
             this.btnSaveCSV = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dgvStocklist = new System.Windows.Forms.DataGridView();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.lblFilename = new System.Windows.Forms.Label();
+            this.txtFilename = new System.Windows.Forms.TextBox();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvStocklist)).BeginInit();
             this.SuspendLayout();
             // 
             // lblWelcome
@@ -73,7 +75,8 @@ namespace Wood_Stocks_App
             // 
             // btnImportCSV
             // 
-            this.btnImportCSV.Location = new System.Drawing.Point(394, 15);
+            this.btnImportCSV.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnImportCSV.Location = new System.Drawing.Point(415, 15);
             this.btnImportCSV.Name = "btnImportCSV";
             this.btnImportCSV.Size = new System.Drawing.Size(100, 45);
             this.btnImportCSV.TabIndex = 3;
@@ -83,7 +86,9 @@ namespace Wood_Stocks_App
             // 
             // btnSaveCSV
             // 
-            this.btnSaveCSV.Location = new System.Drawing.Point(521, 15);
+            this.btnSaveCSV.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSaveCSV.AutoSize = true;
+            this.btnSaveCSV.Location = new System.Drawing.Point(540, 15);
             this.btnSaveCSV.Name = "btnSaveCSV";
             this.btnSaveCSV.Size = new System.Drawing.Size(100, 45);
             this.btnSaveCSV.TabIndex = 4;
@@ -93,7 +98,9 @@ namespace Wood_Stocks_App
             // 
             // btnExit
             // 
-            this.btnExit.Location = new System.Drawing.Point(646, 15);
+            this.btnExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnExit.AutoSize = true;
+            this.btnExit.Location = new System.Drawing.Point(664, 15);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(100, 45);
             this.btnExit.TabIndex = 5;
@@ -101,13 +108,19 @@ namespace Wood_Stocks_App
             this.btnExit.UseVisualStyleBackColor = true;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
-            // dataGridView1
+            // dgvStocklist
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 73);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(752, 365);
-            this.dataGridView1.TabIndex = 6;
+            this.dgvStocklist.AllowUserToAddRows = false;
+            this.dgvStocklist.AllowUserToDeleteRows = false;
+            this.dgvStocklist.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvStocklist.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvStocklist.Location = new System.Drawing.Point(12, 104);
+            this.dgvStocklist.Name = "dgvStocklist";
+            this.dgvStocklist.Size = new System.Drawing.Size(752, 334);
+            this.dgvStocklist.TabIndex = 6;
+            this.dgvStocklist.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvStocklist_CellContentClick);
             // 
             // openFileDialog1
             // 
@@ -120,21 +133,45 @@ namespace Wood_Stocks_App
             this.saveFileDialog1.Title = "Save File";
             this.saveFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialog1_FileOk);
             // 
+            // lblFilename
+            // 
+            this.lblFilename.AutoSize = true;
+            this.lblFilename.Location = new System.Drawing.Point(24, 76);
+            this.lblFilename.Name = "lblFilename";
+            this.lblFilename.Size = new System.Drawing.Size(52, 13);
+            this.lblFilename.TabIndex = 7;
+            this.lblFilename.Text = "Filename:";
+            this.lblFilename.Click += new System.EventHandler(this.lblFilename_Click);
+            // 
+            // txtFilename
+            // 
+            this.txtFilename.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtFilename.Location = new System.Drawing.Point(86, 73);
+            this.txtFilename.Name = "txtFilename";
+            this.txtFilename.Size = new System.Drawing.Size(678, 20);
+            this.txtFilename.TabIndex = 8;
+            this.txtFilename.TextChanged += new System.EventHandler(this.txtFilename_TextChanged);
+            // 
             // frmWoodStocksInventory
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(776, 450);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.txtFilename);
+            this.Controls.Add(this.lblFilename);
+            this.Controls.Add(this.dgvStocklist);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnSaveCSV);
             this.Controls.Add(this.btnImportCSV);
             this.Controls.Add(this.lblSaveCSV);
             this.Controls.Add(this.lblImportCSV);
             this.Controls.Add(this.lblWelcome);
+            this.MinimumSize = new System.Drawing.Size(792, 489);
             this.Name = "frmWoodStocksInventory";
             this.Text = "Wood Stocks Inventory";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.Load += new System.EventHandler(this.frmWoodStocksInventory_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvStocklist)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -148,9 +185,11 @@ namespace Wood_Stocks_App
         private System.Windows.Forms.Button btnImportCSV;
         private System.Windows.Forms.Button btnSaveCSV;
         private System.Windows.Forms.Button btnExit;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgvStocklist;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.Label lblFilename;
+        private System.Windows.Forms.TextBox txtFilename;
     }
 }
 
