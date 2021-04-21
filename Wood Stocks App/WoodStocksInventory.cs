@@ -15,7 +15,7 @@ namespace Wood_Stocks_App
             InitializeComponent();
         }
 
-        private void btnImportCSV_Click(object sender, EventArgs e)
+        private void btnOpen_Click(object sender, EventArgs e)
         {
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
@@ -25,20 +25,41 @@ namespace Wood_Stocks_App
                 dgvStocklist.DataSource = dt;
                 AddColumn();
                 AddRows();
+
+                if (dgvStocklist.Columns[0].DataPropertyName == "Column1")
+                {
+                    dgvStocklist.Columns[0].HeaderCell.Value = "Check the file you opened, possibly empty file or there are no column headers.";
+
+                    MessageBox.Show("Check if correct file opened or column headers are possibly empty.", "Error Info");
+                }
+                else
+                {
+                    try
+                    {
+                        int numberOfColumns = (dgvStocklist.Columns.Count) - 1;
+                        {
+                            int currentCountIndex = dgvStocklist.Columns["Current Count"].Index;
+
+                            for (int i = numberOfColumns; i >= 0; i--)
+                            {
+                                dgvStocklist.Columns[i].ReadOnly = true;
+                            }
+
+                            if (dgvStocklist.Columns.Contains("Current Count") == true)
+                            {
+                                dgvStocklist.Columns[currentCountIndex].ReadOnly = false;
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Check Column Headers Error: " + ex.Message);
+                    }
+                }
             }
-
-            int numberOfColumns = (dgvStocklist.Columns.Count) - 1;
-            int currentCountIndex = dgvStocklist.Columns["Current Count"].Index;
-
-            for (int i = numberOfColumns; i >= 0; i--)
+            else if(openFileDialog1.ShowDialog() == DialogResult.Cancel)
             {
-                dgvStocklist.Columns[i].ReadOnly = true;
-            }
-
-            if (dgvStocklist.Columns.Contains("Current Count") == true)
-            {
-                dgvStocklist.Columns[currentCountIndex].ReadOnly = false;
-                dgvStocklist.Columns[currentCount].DisplayIndex = 2;
+                MessageBox.Show("Select a CSV file to open.", "Open Error");
             }
         }
 
@@ -52,21 +73,37 @@ namespace Wood_Stocks_App
         {
             string[] lines = File.ReadAllLines(openFileDialog1.FileName);
             string[] firstline = lines[0].Split(',');
-            if (lines.Length >0)
+
+            if (lines.Length > 0)
             {
-                for (int i = 0; i < firstline.Length; i++)
+                try
                 {
-                    int currentCountIndex = Array.IndexOf(firstline, currentCount);
-                    if (i == currentCountIndex)
+                    dt.Columns.Clear();
+                    dt.Rows.Clear();
+                    int columnIndex = 0;
+                    while (columnIndex < firstline.Length)
                     {
-                        continue;
+                        int currentCountIndex = Array.IndexOf(firstline, currentCount);
+                        if (columnIndex == currentCountIndex)
+                        {
+                            dt.Columns.Add(currentCount, typeof(int));
+                        }
+                        else
+                        {
+                            dt.Columns.Add(firstline[columnIndex]);
+                        }
+                        columnIndex++;
                     }
-                    dt.Columns.Add(firstline[i]);
                 }
-                if (firstline.Contains(currentCount))
+                catch (Exception ex)
                 {
-                    dt.Columns.Add(currentCount, typeof(int));
+                    MessageBox.Show("Add Column Error: " + ex.Message);
                 }
+
+            }
+            else
+            {
+                MessageBox.Show("Check if CSV file headers are correct", "Info");
             }
         }
 
@@ -75,25 +112,89 @@ namespace Wood_Stocks_App
             string[] lines = File.ReadAllLines(openFileDialog1.FileName);
             if (lines.Length > 0)
             {
-                for (int i = 1; i < lines.Length; i++)
+                try
                 {
-                    string[] data = lines[i].Split(',');
-                    DataRow dr = dt.NewRow();
-                    int columnIndex = 0;
-                    string[] headerLabels = { itemCode, itemDescription, currentCount, onOrder };
-                    foreach (string header in headerLabels)
+                    for (int ColumnIndex = 1; ColumnIndex < lines.Length; ColumnIndex++)
                     {
-                        dr[header] = data[columnIndex++];
+                        string[] data = lines[ColumnIndex].Split(',');
+                        DataRow dr = dt.NewRow();
+                        int dataColumnIndex = 0;
+                        string[] headerLabels = lines[0].Split(',');
+                        foreach (string header in headerLabels)
+                        {
+                            dr[header] = data[dataColumnIndex++];
+                        }
+                        dt.Rows.Add(dr);
                     }
-                    dt.Rows.Add(dr);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Add Row Error: " + ex.Message);
                 }
             }
-              
+            else
+            {
+                MessageBox.Show("No Data to Load", "Info");
+            }
+
         }
 
-        private void btnSaveCSV_Click(object sender, EventArgs e)
+        private void btnSave_Click(object sender, EventArgs e)
         {
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                saveFileDialog1.InitialDirectory = "C:\\StockFile";
+                saveFileDialog1.RestoreDirectory = true;
 
+                if (dgvStocklist.Rows.Count > 0)
+                {
+                    try
+                    {
+                        int columnCount = dgvStocklist.ColumnCount;
+                        int rowCount = dgvStocklist.RowCount + 1;
+                        string columnHeaders = "";
+                        string[] csvOutput = new string[rowCount];
+                        for (int columnIndex = 0; columnIndex < columnCount; columnIndex++)
+                        {
+                            if (columnIndex == dgvStocklist.ColumnCount - 1)
+                            {
+                                columnHeaders = columnHeaders + dgvStocklist.Columns[columnIndex].DataPropertyName.ToString();
+                            }
+                            else
+                            {
+                                columnHeaders = columnHeaders + dgvStocklist.Columns[columnIndex].DataPropertyName.ToString() + ",";
+                            }
+                        }
+                        csvOutput[0] = columnHeaders;
+
+                        for (int rowIndex = 1; rowIndex < rowCount; rowIndex++)
+                        {
+                            for (int columnIndex = 0; columnIndex < columnCount; columnIndex++)
+                            {
+                                if (columnIndex == dgvStocklist.ColumnCount - 1)
+                                {
+                                    csvOutput[rowIndex] = csvOutput[rowIndex] + dgvStocklist.Rows[rowIndex - 1].Cells[columnIndex].Value.ToString();
+                                }
+                                else
+                                {
+                                    csvOutput[rowIndex] = csvOutput[rowIndex] + dgvStocklist.Rows[rowIndex - 1].Cells[columnIndex].Value.ToString() + ",";
+                                }
+                            }
+                        }
+                        File.WriteAllLines(saveFileDialog1.FileName, csvOutput, System.Text.Encoding.UTF8);
+                        MessageBox.Show("File Saved Successfully.", "Info");
+                    }
+
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Save File Error: " + ex.Message);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No Data To Save", "Info");
+                }
+            }
         }
 
         private void btnExit_Click(object sender, EventArgs e)
@@ -108,12 +209,15 @@ namespace Wood_Stocks_App
 
         private void saveFileDialog1_FileOk(object sender, CancelEventArgs e)
         {
-            
+
         }
 
         private void dgvStocklist_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-                
+            if (dgvStocklist.CurrentCell.ReadOnly)
+            {
+                SendKeys.Send("{TAB}");
+            }
         }
 
         private void txtFilename_TextChanged(object sender, EventArgs e)
@@ -130,7 +234,20 @@ namespace Wood_Stocks_App
         {
 
         }
+
+        private void lblOpen_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblSave_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void frmWoodStocksInventory_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            
+        }
     }
-
-
 }
