@@ -30,9 +30,9 @@ namespace Wood_Stocks_App
         private void InitializeComponent()
         {
             this.lblWelcome = new System.Windows.Forms.Label();
-            this.lblImportCSV = new System.Windows.Forms.Label();
-            this.lblSaveCSV = new System.Windows.Forms.Label();
-            this.btnImportCSV = new System.Windows.Forms.Button();
+            this.lblOpen = new System.Windows.Forms.Label();
+            this.lblSave = new System.Windows.Forms.Label();
+            this.btnOpen = new System.Windows.Forms.Button();
             this.btnSaveCSV = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
             this.dgvStocklist = new System.Windows.Forms.DataGridView();
@@ -53,36 +53,38 @@ namespace Wood_Stocks_App
             this.lblWelcome.TabIndex = 0;
             this.lblWelcome.Text = "Welcome,";
             // 
-            // lblImportCSV
+            // lblOpen
             // 
-            this.lblImportCSV.AutoSize = true;
-            this.lblImportCSV.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblImportCSV.Location = new System.Drawing.Point(24, 29);
-            this.lblImportCSV.Name = "lblImportCSV";
-            this.lblImportCSV.Size = new System.Drawing.Size(172, 15);
-            this.lblImportCSV.TabIndex = 1;
-            this.lblImportCSV.Text = "Click on \"Import CSV\" to begin.";
+            this.lblOpen.AutoSize = true;
+            this.lblOpen.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblOpen.Location = new System.Drawing.Point(24, 29);
+            this.lblOpen.Name = "lblOpen";
+            this.lblOpen.Size = new System.Drawing.Size(141, 15);
+            this.lblOpen.TabIndex = 1;
+            this.lblOpen.Text = "Click on \"Open\" to begin.";
+            this.lblOpen.Click += new System.EventHandler(this.lblOpen_Click);
             // 
-            // lblSaveCSV
+            // lblSave
             // 
-            this.lblSaveCSV.AutoSize = true;
-            this.lblSaveCSV.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSaveCSV.Location = new System.Drawing.Point(24, 45);
-            this.lblSaveCSV.Name = "lblSaveCSV";
-            this.lblSaveCSV.Size = new System.Drawing.Size(346, 15);
-            this.lblSaveCSV.TabIndex = 2;
-            this.lblSaveCSV.Text = "Once editing is complete click on \"Save CSV\" to update the file.";
+            this.lblSave.AutoSize = true;
+            this.lblSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSave.Location = new System.Drawing.Point(24, 45);
+            this.lblSave.Name = "lblSave";
+            this.lblSave.Size = new System.Drawing.Size(320, 15);
+            this.lblSave.TabIndex = 2;
+            this.lblSave.Text = "Once editing is complete click on \"Save\" to update the file.";
+            this.lblSave.Click += new System.EventHandler(this.lblSave_Click);
             // 
-            // btnImportCSV
+            // btnOpen
             // 
-            this.btnImportCSV.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnImportCSV.Location = new System.Drawing.Point(415, 15);
-            this.btnImportCSV.Name = "btnImportCSV";
-            this.btnImportCSV.Size = new System.Drawing.Size(100, 45);
-            this.btnImportCSV.TabIndex = 3;
-            this.btnImportCSV.Text = "&Import CSV";
-            this.btnImportCSV.UseVisualStyleBackColor = true;
-            this.btnImportCSV.Click += new System.EventHandler(this.btnImportCSV_Click);
+            this.btnOpen.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnOpen.Location = new System.Drawing.Point(415, 15);
+            this.btnOpen.Name = "btnOpen";
+            this.btnOpen.Size = new System.Drawing.Size(100, 45);
+            this.btnOpen.TabIndex = 3;
+            this.btnOpen.Text = "&Open";
+            this.btnOpen.UseVisualStyleBackColor = true;
+            this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
             // 
             // btnSaveCSV
             // 
@@ -92,9 +94,9 @@ namespace Wood_Stocks_App
             this.btnSaveCSV.Name = "btnSaveCSV";
             this.btnSaveCSV.Size = new System.Drawing.Size(100, 45);
             this.btnSaveCSV.TabIndex = 4;
-            this.btnSaveCSV.Text = "&Save CSV";
+            this.btnSaveCSV.Text = "&Save";
             this.btnSaveCSV.UseVisualStyleBackColor = true;
-            this.btnSaveCSV.Click += new System.EventHandler(this.btnSaveCSV_Click);
+            this.btnSaveCSV.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnExit
             // 
@@ -112,6 +114,7 @@ namespace Wood_Stocks_App
             // 
             this.dgvStocklist.AllowUserToAddRows = false;
             this.dgvStocklist.AllowUserToDeleteRows = false;
+            this.dgvStocklist.AllowUserToOrderColumns = true;
             this.dgvStocklist.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -125,11 +128,14 @@ namespace Wood_Stocks_App
             // openFileDialog1
             // 
             this.openFileDialog1.Filter = "CSV Files (*.csv)|*.csv|All Files (*.*)|*.*";
-            this.openFileDialog1.Title = "Import";
+            this.openFileDialog1.Title = "Open";
             this.openFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
             // 
             // saveFileDialog1
             // 
+            this.saveFileDialog1.CreatePrompt = true;
+            this.saveFileDialog1.DefaultExt = "csv";
+            this.saveFileDialog1.Filter = "CSV Files (*.csv)|*.csv|All Files (*.*)|*.*";
             this.saveFileDialog1.Title = "Save File";
             this.saveFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialog1_FileOk);
             // 
@@ -161,15 +167,16 @@ namespace Wood_Stocks_App
             this.Controls.Add(this.txtFilename);
             this.Controls.Add(this.lblFilename);
             this.Controls.Add(this.dgvStocklist);
-            this.Controls.Add(this.btnExit);
+            this.Controls.Add(this.btnOpen);
             this.Controls.Add(this.btnSaveCSV);
-            this.Controls.Add(this.btnImportCSV);
-            this.Controls.Add(this.lblSaveCSV);
-            this.Controls.Add(this.lblImportCSV);
+            this.Controls.Add(this.btnExit);
+            this.Controls.Add(this.lblSave);
+            this.Controls.Add(this.lblOpen);
             this.Controls.Add(this.lblWelcome);
             this.MinimumSize = new System.Drawing.Size(792, 489);
             this.Name = "frmWoodStocksInventory";
             this.Text = "Wood Stocks Inventory";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmWoodStocksInventory_FormClosing);
             this.Load += new System.EventHandler(this.frmWoodStocksInventory_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvStocklist)).EndInit();
             this.ResumeLayout(false);
@@ -180,9 +187,9 @@ namespace Wood_Stocks_App
         #endregion
 
         private System.Windows.Forms.Label lblWelcome;
-        private System.Windows.Forms.Label lblImportCSV;
-        private System.Windows.Forms.Label lblSaveCSV;
-        private System.Windows.Forms.Button btnImportCSV;
+        private System.Windows.Forms.Label lblOpen;
+        private System.Windows.Forms.Label lblSave;
+        private System.Windows.Forms.Button btnOpen;
         private System.Windows.Forms.Button btnSaveCSV;
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.DataGridView dgvStocklist;
