@@ -36,10 +36,10 @@ namespace Wood_Stocks_App
                 {
                     try
                     {
+                        int currentCountIndex = dgvStocklist.Columns["Current Count"].Index;
                         int numberOfColumns = (dgvStocklist.Columns.Count) - 1;
                         {
-                            int currentCountIndex = dgvStocklist.Columns["Current Count"].Index;
-
+                            
                             for (int i = numberOfColumns; i >= 0; i--)
                             {
                                 dgvStocklist.Columns[i].ReadOnly = true;
@@ -50,6 +50,7 @@ namespace Wood_Stocks_App
                                 dgvStocklist.Columns[currentCountIndex].ReadOnly = false;
                             }
                         }
+                        dgvStocklist.CurrentCell = dgvStocklist.Rows[0].Cells[currentCountIndex];
                     }
                     catch (Exception ex)
                     {
@@ -212,12 +213,17 @@ namespace Wood_Stocks_App
 
         }
 
-        private void dgvStocklist_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void dgvStocklist_CellEnter(object sender, DataGridViewCellEventArgs e)
         {
-            if (dgvStocklist.CurrentCell.ReadOnly)
+            if(dgvStocklist.CurrentRow.Cells[e.ColumnIndex].ReadOnly)
             {
                 SendKeys.Send("{TAB}");
             }
+        }
+
+        private void dgvStocklist_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
 
         private void txtFilename_TextChanged(object sender, EventArgs e)
