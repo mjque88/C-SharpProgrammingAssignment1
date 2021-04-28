@@ -124,6 +124,9 @@ namespace Wood_Stocks_App
             this.dgvStocklist.Size = new System.Drawing.Size(752, 334);
             this.dgvStocklist.TabIndex = 6;
             this.dgvStocklist.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvStocklist_CellContentClick);
+            this.dgvStocklist.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvStocklist_CellEnter);
+            this.dgvStocklist.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dgvStocklist_CellValidating);
+            this.dgvStocklist.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgvStocklist_DataError);
             // 
             // openFileDialog1
             // 
@@ -155,8 +158,10 @@ namespace Wood_Stocks_App
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtFilename.Location = new System.Drawing.Point(86, 73);
             this.txtFilename.Name = "txtFilename";
+            this.txtFilename.ReadOnly = true;
             this.txtFilename.Size = new System.Drawing.Size(678, 20);
             this.txtFilename.TabIndex = 8;
+            this.txtFilename.TabStop = false;
             this.txtFilename.TextChanged += new System.EventHandler(this.txtFilename_TextChanged);
             // 
             // frmWoodStocksInventory
