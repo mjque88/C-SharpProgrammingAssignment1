@@ -36,7 +36,7 @@ namespace Wood_Stocks_App
                 {
                     try
                     {
-                        int currentCountIndex = dgvStocklist.Columns["Current Count"].Index;
+                        int currentCountIndex = dgvStocklist.Columns[currentCount].Index;
                         int numberOfColumns = (dgvStocklist.Columns.Count) - 1;
                         {
                             
@@ -45,7 +45,7 @@ namespace Wood_Stocks_App
                                 dgvStocklist.Columns[i].ReadOnly = true;
                             }
 
-                            if (dgvStocklist.Columns.Contains("Current Count") == true)
+                            if (dgvStocklist.Columns.Contains(currentCount) == true)
                             {
                                 dgvStocklist.Columns[currentCountIndex].ReadOnly = false;
                             }
@@ -210,16 +210,79 @@ namespace Wood_Stocks_App
 
         private void saveFileDialog1_FileOk(object sender, CancelEventArgs e)
         {
+            
 
         }
 
         private void dgvStocklist_CellEnter(object sender, DataGridViewCellEventArgs e)
         {
-            if(dgvStocklist.CurrentRow.Cells[e.ColumnIndex].ReadOnly)
+            if (dgvStocklist.CurrentRow.Cells[e.ColumnIndex].ReadOnly)
             {
                 SendKeys.Send("{TAB}");
             }
         }
+
+        private void dgvStocklist_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+
+            int currentCountIndex = dgvStocklist.Columns[currentCount].Index;
+
+            if (e.ColumnIndex != dgvStocklist.Columns[currentCountIndex].Index)
+            {
+                return;
+            }
+            else
+            {
+                try
+                {
+                    if (dgvStocklist.CurrentCell.ValueType != typeof(int))
+                    {
+                        MessageBox.Show("Enter whole numbers only or 0 if no stock.", "Incorrect Input:");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Enter whole numbers only or 0 if no stock." + ex.Message, "Incorrect Input:");
+                }
+            }
+        }
+
+        private void dgvStocklist_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            e.Cancel = true;
+
+            if ((e.Exception is FormatException))
+            {
+                MessageBox.Show("Enter whole numbers only or 0 if no stock.", "Incorrect Input:");
+            }
+            else
+            {
+                MessageBox.Show("Unknown Error, please contact administrator", "Unknown Error: ");
+            }
+
+            //int excemptionCount = 0;
+            //int excemptionLimit = 3;
+            //bool passExcemptionLimit = false;
+
+            //while (e.Exception is FormatException && !passExcemptionLimit)
+            //{
+            //    if (excemptionCount < excemptionLimit)
+            //    {
+            //            MessageBox.Show("Enter whole numbers only or 0 if no stock.", "Incorrect Input");
+            //            excemptionCount++;
+            //    }
+            //    else
+            //    {
+            //        passExcemptionLimit = true;
+            //    }
+            //}
+            //if (passExcemptionLimit)
+            //{
+            //    MessageBox.Show("You did not enter a whole number or 0, program will now close.", "Warning: Program Close!");
+            //    Environment.Exit(0);
+            //}
+        }
+
 
         private void dgvStocklist_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -255,5 +318,6 @@ namespace Wood_Stocks_App
         {
             
         }
+
     }
 }
