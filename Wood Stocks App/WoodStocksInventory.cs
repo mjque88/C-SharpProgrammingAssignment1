@@ -10,6 +10,14 @@ namespace Wood_Stocks_App
 {
     public partial class frmWoodStocksInventory : Form
     {
+        DataTable dt = new DataTable();
+        string itemCode = "Item Code";
+        string itemDescription = "Item Description";
+        string currentCount = "Current Count";
+        string onOrder = "On Order";
+        int incorrectInputCount = 0;
+        int excemptionLimit = 3;
+
         public frmWoodStocksInventory()
         {
             InitializeComponent();
@@ -64,11 +72,7 @@ namespace Wood_Stocks_App
             }
         }
 
-        DataTable dt = new DataTable();
-        string itemCode = "Item Code";
-        string itemDescription = "Item Description";
-        string currentCount = "Current Count";
-        string onOrder = "On Order";
+        
 
         public void AddColumn()
         {
@@ -237,12 +241,12 @@ namespace Wood_Stocks_App
                 {
                     if (dgvStocklist.CurrentCell.ValueType != typeof(int))
                     {
-                        MessageBox.Show("Enter whole numbers only or 0 if no stock.", "Incorrect Input:");
+                        MessageBox.Show("Enter whole numbers only or 0 if no stock.", "Incorrect Input");
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Enter whole numbers only or 0 if no stock." + ex.Message, "Incorrect Input:");
+                    MessageBox.Show("Enter whole numbers only or 0 if no stock." + ex.Message, "Incorrect Input");
                 }
             }
         }
@@ -251,36 +255,27 @@ namespace Wood_Stocks_App
         {
             e.Cancel = true;
 
+            
             if ((e.Exception is FormatException))
             {
-                MessageBox.Show("Enter whole numbers only or 0 if no stock.", "Incorrect Input:");
+                string messsageIncorrectInput = "Enter whole numbers only or 0 if no stock.";
+                string titleIncorrectInput = "Incorrect Input";
+                MessageBoxButtons buttonIncorrectInput = MessageBoxButtons.OK;
+                DialogResult resultIncorrectInput = MessageBox.Show(messsageIncorrectInput, titleIncorrectInput, buttonIncorrectInput);
+                if(resultIncorrectInput == DialogResult.OK)
+                {
+                    incorrectInputCount++;
+                }
+                if (incorrectInputCount >= excemptionLimit)
+                {
+                    MessageBox.Show("You did not enter a whole number or 0, program will now close.", "Warning: Program Close!");
+                    Environment.Exit(0);
+                }
             }
             else
             {
-                MessageBox.Show("Unknown Error, please contact administrator", "Unknown Error: ");
+                MessageBox.Show("Unknown Error, please contact administrator", "Unknown Error");
             }
-
-            //int excemptionCount = 0;
-            //int excemptionLimit = 3;
-            //bool passExcemptionLimit = false;
-
-            //while (e.Exception is FormatException && !passExcemptionLimit)
-            //{
-            //    if (excemptionCount < excemptionLimit)
-            //    {
-            //            MessageBox.Show("Enter whole numbers only or 0 if no stock.", "Incorrect Input");
-            //            excemptionCount++;
-            //    }
-            //    else
-            //    {
-            //        passExcemptionLimit = true;
-            //    }
-            //}
-            //if (passExcemptionLimit)
-            //{
-            //    MessageBox.Show("You did not enter a whole number or 0, program will now close.", "Warning: Program Close!");
-            //    Environment.Exit(0);
-            //}
         }
 
 
