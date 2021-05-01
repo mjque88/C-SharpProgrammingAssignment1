@@ -210,6 +210,7 @@ namespace Wood_Stocks_App
             DialogResult resultConfirmExit = MessageBox.Show(messageConfirmExit, titleConfirmExit, buttonConfirmExit);
             if (resultConfirmExit == DialogResult.Yes)
             {
+                Dispose();
                 Environment.Exit(0);
             }
             else
