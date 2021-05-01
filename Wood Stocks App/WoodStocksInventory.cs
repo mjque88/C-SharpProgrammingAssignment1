@@ -204,7 +204,18 @@ namespace Wood_Stocks_App
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            Environment.Exit(0);
+            string messageConfirmExit = "Do you want to exit the program?";
+            string titleConfirmExit = "Exit Program";
+            MessageBoxButtons buttonConfirmExit = MessageBoxButtons.YesNo;
+            DialogResult resultConfirmExit = MessageBox.Show(messageConfirmExit, titleConfirmExit, buttonConfirmExit);
+            if (resultConfirmExit == DialogResult.Yes)
+            {
+                Environment.Exit(0);
+            }
+            else
+            {
+                return;
+            }
         }
 
         private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
