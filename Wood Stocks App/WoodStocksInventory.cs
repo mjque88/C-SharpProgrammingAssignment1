@@ -206,9 +206,9 @@ namespace Wood_Stocks_App
         {
             string messageConfirmExit = "Do you want to exit the program?";
             string titleConfirmExit = "Exit Program";
-            MessageBoxButtons buttonConfirmExit = MessageBoxButtons.OKCancel;
+            MessageBoxButtons buttonConfirmExit = MessageBoxButtons.YesNo;
             DialogResult resultConfirmExit = MessageBox.Show(messageConfirmExit, titleConfirmExit, buttonConfirmExit);
-            if (resultConfirmExit == DialogResult.OK)
+            if (resultConfirmExit == DialogResult.Yes)
             {
                 Environment.Exit(0);
             }
