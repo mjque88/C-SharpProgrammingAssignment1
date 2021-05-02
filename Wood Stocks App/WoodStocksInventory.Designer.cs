@@ -34,7 +34,6 @@ namespace Wood_Stocks_App
             this.lblSave = new System.Windows.Forms.Label();
             this.btnOpen = new System.Windows.Forms.Button();
             this.btnSaveCSV = new System.Windows.Forms.Button();
-            this.btnExit = new System.Windows.Forms.Button();
             this.dgvStocklist = new System.Windows.Forms.DataGridView();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
@@ -78,7 +77,7 @@ namespace Wood_Stocks_App
             // btnOpen
             // 
             this.btnOpen.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOpen.Location = new System.Drawing.Point(415, 15);
+            this.btnOpen.Location = new System.Drawing.Point(544, 15);
             this.btnOpen.Name = "btnOpen";
             this.btnOpen.Size = new System.Drawing.Size(100, 45);
             this.btnOpen.TabIndex = 3;
@@ -90,25 +89,13 @@ namespace Wood_Stocks_App
             // 
             this.btnSaveCSV.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSaveCSV.AutoSize = true;
-            this.btnSaveCSV.Location = new System.Drawing.Point(540, 15);
+            this.btnSaveCSV.Location = new System.Drawing.Point(664, 15);
             this.btnSaveCSV.Name = "btnSaveCSV";
             this.btnSaveCSV.Size = new System.Drawing.Size(100, 45);
             this.btnSaveCSV.TabIndex = 4;
             this.btnSaveCSV.Text = "&Save";
             this.btnSaveCSV.UseVisualStyleBackColor = true;
             this.btnSaveCSV.Click += new System.EventHandler(this.btnSave_Click);
-            // 
-            // btnExit
-            // 
-            this.btnExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnExit.AutoSize = true;
-            this.btnExit.Location = new System.Drawing.Point(664, 15);
-            this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(100, 45);
-            this.btnExit.TabIndex = 5;
-            this.btnExit.Text = "E&xit";
-            this.btnExit.UseVisualStyleBackColor = true;
-            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
             // dgvStocklist
             // 
@@ -174,7 +161,6 @@ namespace Wood_Stocks_App
             this.Controls.Add(this.dgvStocklist);
             this.Controls.Add(this.btnOpen);
             this.Controls.Add(this.btnSaveCSV);
-            this.Controls.Add(this.btnExit);
             this.Controls.Add(this.lblSave);
             this.Controls.Add(this.lblOpen);
             this.Controls.Add(this.lblWelcome);
@@ -196,7 +182,6 @@ namespace Wood_Stocks_App
         private System.Windows.Forms.Label lblSave;
         private System.Windows.Forms.Button btnOpen;
         private System.Windows.Forms.Button btnSaveCSV;
-        private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.DataGridView dgvStocklist;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
