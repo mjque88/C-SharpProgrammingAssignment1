@@ -2,9 +2,7 @@
 using System.ComponentModel;
 using System.Data;
 using System.IO;
-using System.Linq;
 using System.Windows.Forms;
-
 
 namespace Wood_Stocks_App
 {
@@ -17,6 +15,7 @@ namespace Wood_Stocks_App
         string onOrder = "On Order";
         int incorrectInputCount = 0;
         int excemptionLimit = 3;
+        bool formClosingClicked = false;
 
         public frmWoodStocksInventory()
         {
@@ -25,7 +24,8 @@ namespace Wood_Stocks_App
 
         private void btnOpen_Click(object sender, EventArgs e)
         {
-            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            DialogResult openFileDialog1Result = openFileDialog1.ShowDialog();
+            if (openFileDialog1Result == DialogResult.OK)
             {
                 txtFilename.Text = openFileDialog1.FileName;
                 openFileDialog1.InitialDirectory = "C:\\StockFile";
@@ -62,17 +62,15 @@ namespace Wood_Stocks_App
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Check Column Headers Error: " + ex.Message);
+                        MessageBox.Show("Check column headers error: " + ex.Message);
                     }
                 }
             }
-            else if(openFileDialog1.ShowDialog() == DialogResult.Cancel)
+            else if(openFileDialog1Result == DialogResult.Cancel)
             {
                 MessageBox.Show("Select a CSV file to open.", "Open Error");
             }
         }
-
-        
 
         public void AddColumn()
         {
@@ -102,7 +100,7 @@ namespace Wood_Stocks_App
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Add Column Error: " + ex.Message);
+                    MessageBox.Show("Add column error: " + ex.Message);
                 }
 
             }
@@ -134,22 +132,23 @@ namespace Wood_Stocks_App
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Add Row Error: " + ex.Message);
+                    MessageBox.Show("Add row error: " + ex.Message);
                 }
             }
             else
             {
-                MessageBox.Show("No Data to Load", "Info");
+                MessageBox.Show("No data to load", "Info");
             }
-
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            DialogResult saveFileDialog1Result = saveFileDialog1.ShowDialog();
+            if (saveFileDialog1Result == DialogResult.OK)
             {
                 saveFileDialog1.InitialDirectory = "C:\\StockFile";
                 saveFileDialog1.RestoreDirectory = true;
+                txtFilename.Text = saveFileDialog1.FileName;
 
                 if (dgvStocklist.Rows.Count > 0)
                 {
@@ -187,34 +186,33 @@ namespace Wood_Stocks_App
                             }
                         }
                         File.WriteAllLines(saveFileDialog1.FileName, csvOutput, System.Text.Encoding.UTF8);
-                        MessageBox.Show("File Saved Successfully.", "Info");
+                        if (formClosingClicked == true && saveFileDialog1Result == DialogResult.OK)
+                        {
+                            MessageBox.Show("File saved successfully, program will now exit.", "Info");
+                            Dispose();
+                            Environment.Exit(0);
+                        }
+                        else
+                        {
+                            MessageBox.Show("File saved successfully.", "Info");
+                        }
+                        
                     }
 
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Save File Error: " + ex.Message);
+                        MessageBox.Show("Save file error: " + ex.Message);
                     }
                 }
                 else
                 {
-                    MessageBox.Show("No Data To Save", "Info");
+                    formClosingClicked = false;
+                    MessageBox.Show("No data to save", "Info");
                 }
             }
-        }
-
-        private void btnExit_Click(object sender, EventArgs e)
-        {
-            string messageConfirmExit = "Do you want to exit the program?";
-            string titleConfirmExit = "Exit Program";
-            MessageBoxButtons buttonConfirmExit = MessageBoxButtons.YesNo;
-            DialogResult resultConfirmExit = MessageBox.Show(messageConfirmExit, titleConfirmExit, buttonConfirmExit);
-            if (resultConfirmExit == DialogResult.Yes)
+            else if (saveFileDialog1Result == DialogResult.Cancel)
             {
-                Dispose();
-                Environment.Exit(0);
-            }
-            else
-            {
+                formClosingClicked = false;
                 return;
             }
         }
@@ -232,7 +230,13 @@ namespace Wood_Stocks_App
 
         private void dgvStocklist_CellEnter(object sender, DataGridViewCellEventArgs e)
         {
-            if (dgvStocklist.CurrentRow.Cells[e.ColumnIndex].ReadOnly)
+            int lastRow = dgvStocklist.Rows.Count - 1;
+            int lastColumn = dgvStocklist.Columns.Count -1;
+            if (dgvStocklist.CurrentCell == dgvStocklist.Rows[lastRow].Cells[lastColumn])
+            {
+                SendKeys.Send("{LEFT}");
+            }
+            else if (dgvStocklist.CurrentRow.Cells[e.ColumnIndex].ReadOnly)
             {
                 SendKeys.Send("{TAB}");
             }
@@ -267,7 +271,6 @@ namespace Wood_Stocks_App
         {
             e.Cancel = true;
 
-            
             if ((e.Exception is FormatException))
             {
                 string messsageIncorrectInput = "Enter whole numbers only or 0 if no stock.";
@@ -281,6 +284,7 @@ namespace Wood_Stocks_App
                 if (incorrectInputCount >= excemptionLimit)
                 {
                     MessageBox.Show("You did not enter a whole number or 0, program will now close.", "Warning: Program Close!");
+                    Dispose();
                     Environment.Exit(0);
                 }
             }
@@ -289,7 +293,6 @@ namespace Wood_Stocks_App
                 MessageBox.Show("Unknown Error, please contact administrator", "Unknown Error");
             }
         }
-
 
         private void dgvStocklist_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -323,8 +326,27 @@ namespace Wood_Stocks_App
 
         private void frmWoodStocksInventory_FormClosing(object sender, FormClosingEventArgs e)
         {
-            
+            formClosingClicked = true;
+            string messageConfirmExit = "Do you want to Save before you Exit the program?";
+            string titleConfirmExit = "Save and Exit Program";
+            MessageBoxButtons buttonConfirmExit = MessageBoxButtons.YesNoCancel;
+            DialogResult resultConfirmExit = MessageBox.Show(messageConfirmExit, titleConfirmExit, buttonConfirmExit);
+            if (resultConfirmExit == DialogResult.Yes)
+            {
+                btnSave_Click(sender, e);
+                e.Cancel = true;
+            }
+            else if (resultConfirmExit == DialogResult.No)
+            {
+                Dispose();
+                Environment.Exit(0);
+            }
+            else if(resultConfirmExit == DialogResult.Cancel)
+            {
+                formClosingClicked = false;
+                e.Cancel = true;
+                return;
+            }
         }
-
     }
 }
