@@ -8,6 +8,7 @@ namespace Wood_Stocks_App
 {
     public partial class frmWoodStocksInventory : Form
     {
+
         DataTable dt = new DataTable();
         string itemCode = "Item Code";
         string itemDescription = "Item Description";
@@ -24,90 +25,45 @@ namespace Wood_Stocks_App
 
         private void btnOpen_Click(object sender, EventArgs e)
         {
-            DialogResult openFileDialog1Result = openFileDialog1.ShowDialog();
-            if (openFileDialog1Result == DialogResult.OK)
+            OpenFile file1 = new OpenFile(openFileDialog1);
+            file1.SelectFile();
+            txtFilename.Text = openFileDialog1.FileName;
+
+            dgvStocklist.DataSource = TextFile.CreateDataTable(openFileDialog1.FileName).DataTable;
+
+
+            if (dgvStocklist.Columns[0].DataPropertyName == "Column1")
             {
-                txtFilename.Text = openFileDialog1.FileName;
-                openFileDialog1.InitialDirectory = "C:\\StockFile";
-                openFileDialog1.RestoreDirectory = true;
-                dgvStocklist.DataSource = dt;
-                AddColumn();
-                AddRows();
+                dgvStocklist.Columns[0].HeaderCell.Value = "Check the file you opened, possibly empty file or there are no column headers.";
 
-                if (dgvStocklist.Columns[0].DataPropertyName == "Column1")
-                {
-                    dgvStocklist.Columns[0].HeaderCell.Value = "Check the file you opened, possibly empty file or there are no column headers.";
-
-                    MessageBox.Show("Check if correct file opened or column headers are possibly empty.", "Error Info");
-                }
-                else
-                {
-                    try
-                    {
-                        int currentCountIndex = dgvStocklist.Columns[currentCount].Index;
-                        int numberOfColumns = (dgvStocklist.Columns.Count) - 1;
-                        {
-                            
-                            for (int i = numberOfColumns; i >= 0; i--)
-                            {
-                                dgvStocklist.Columns[i].ReadOnly = true;
-                            }
-
-                            if (dgvStocklist.Columns.Contains(currentCount) == true)
-                            {
-                                dgvStocklist.Columns[currentCountIndex].ReadOnly = false;
-                            }
-                        }
-                        dgvStocklist.CurrentCell = dgvStocklist.Rows[0].Cells[currentCountIndex];
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Check column headers error: " + ex.Message);
-                    }
-                }
-            }
-            else if(openFileDialog1Result == DialogResult.Cancel)
-            {
-                MessageBox.Show("Select a CSV file to open.", "Open Error");
-            }
-        }
-
-        public void AddColumn()
-        {
-            string[] lines = File.ReadAllLines(openFileDialog1.FileName);
-            string[] firstline = lines[0].Split(',');
-
-            if (lines.Length > 0)
-            {
-                try
-                {
-                    dt.Columns.Clear();
-                    dt.Rows.Clear();
-                    int columnIndex = 0;
-                    while (columnIndex < firstline.Length)
-                    {
-                        int currentCountIndex = Array.IndexOf(firstline, currentCount);
-                        if (columnIndex == currentCountIndex)
-                        {
-                            dt.Columns.Add(currentCount, typeof(int));
-                        }
-                        else
-                        {
-                            dt.Columns.Add(firstline[columnIndex]);
-                        }
-                        columnIndex++;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Add column error: " + ex.Message);
-                }
-
+                MessageBox.Show("Check if correct file opened or column headers are possibly empty.", "Error Info");
             }
             else
             {
-                MessageBox.Show("Check if CSV file headers are correct", "Info");
+                try
+                {
+                    int currentCountIndex = dgvStocklist.Columns[currentCount].Index;
+                    int numberOfColumns = (dgvStocklist.Columns.Count) - 1;
+                    {
+
+                        for (int i = numberOfColumns; i >= 0; i--)
+                        {
+                            dgvStocklist.Columns[i].ReadOnly = true;
+                        }
+
+                        if (dgvStocklist.Columns.Contains(currentCount) == true)
+                        {
+                            dgvStocklist.Columns[currentCountIndex].ReadOnly = false;
+                        }
+                    }
+                    dgvStocklist.CurrentCell = dgvStocklist.Rows[0].Cells[currentCountIndex];
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Check column headers error: " + ex.Message);
+                }
             }
+
         }
 
         public void AddRows()

@@ -49,6 +49,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="OpenFile.cs" />
+    <Compile Include="TextFile.cs" />
+    <Compile Include="TextFileBase.cs" />
     <Compile Include="WoodStocksInventory.cs">
       <SubType>Form</SubType>
     </Compile>
