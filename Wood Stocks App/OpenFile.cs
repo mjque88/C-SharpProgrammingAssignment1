@@ -10,6 +10,8 @@ namespace Wood_Stocks_App
     {
         private OpenFileDialog openFile;
 
+        public DialogResult openFileDialogResult;
+
         public OpenFile(OpenFileDialog openFileDialog)
         { 
             openFile = openFileDialog;
@@ -27,6 +29,7 @@ namespace Wood_Stocks_App
             {
                 MessageBox.Show("Select a CSV file to open.", "Open Error");
             }
+            openFileDialogResult = openFileDialog1Result;
         }
     }
 }
