@@ -38,7 +38,7 @@ namespace Wood_Stocks_App
 
         public void SavetoCSV(DataGridView dataGridView, SaveFileDialog saveFileDialog)
         {
-            if (dataGridView.Rows.Count > 0)
+            if (dataGridView.Rows.Count > 0 && saveFileDialogResult == DialogResult.OK)
             {
                 try
                 {
@@ -77,8 +77,11 @@ namespace Wood_Stocks_App
                     if (formClosingClicked == true && saveFileDialogResult == DialogResult.OK)
                     {
                         MessageBox.Show("File saved successfully, program will now exit.", "Info");
-                        //Dispose();
                         Environment.Exit(0);
+                    }
+                    else if(saveFileDialogResult == DialogResult.Cancel)
+                    {
+                        return;
                     }
                     else
                     {
@@ -91,6 +94,10 @@ namespace Wood_Stocks_App
                 {
                     MessageBox.Show("Save file error: " + ex.Message);
                 }
+            }
+            else if(dataGridView.Rows.Count > 0 && saveFileDialogResult == DialogResult.Cancel)
+            {
+                return;
             }
             else
             {
