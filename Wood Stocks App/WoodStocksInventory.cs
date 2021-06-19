@@ -22,7 +22,7 @@ namespace Wood_Stocks_App
 
         private void btnOpen_Click(object sender, EventArgs e)
         {
-            // Instatiate OpenFileDialog1
+            // Instantiate OpenFileDialog1
             OpenFile file1 = new OpenFile(openFileDialog1);
 
             // Prompt user to select CSV file to open
@@ -57,7 +57,7 @@ namespace Wood_Stocks_App
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            // Instatiate saveFileDialog1
+            // Instantiate saveFileDialog1
             SaveFile saveFile1 = new SaveFile(saveFileDialog1);
 
             // Check if X button to close form was clicked
