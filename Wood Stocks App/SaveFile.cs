@@ -77,6 +77,7 @@ namespace Wood_Stocks_App
                     if (formClosingClicked == true && saveFileDialogResult == DialogResult.OK)
                     {
                         MessageBox.Show("File saved successfully, program will now exit.", "Info");
+                        dataGridView.Dispose();
                         Environment.Exit(0);
                     }
                     else if(saveFileDialogResult == DialogResult.Cancel)

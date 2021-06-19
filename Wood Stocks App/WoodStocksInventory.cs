@@ -8,7 +8,7 @@ namespace Wood_Stocks_App
 {
     public partial class frmWoodStocksInventory : Form
     {
-
+        // Global Variables
         string currentCount = "Current Count";
         int incorrectInputCount = 0;
         int excemptionLimit = 3;
@@ -22,11 +22,13 @@ namespace Wood_Stocks_App
 
         private void btnOpen_Click(object sender, EventArgs e)
         {
-            // Initialise OpenFileDialog
+            // Instatiate OpenFileDialog1
             OpenFile file1 = new OpenFile(openFileDialog1);
+
+            // Prompt user to select CSV file to open
             file1.SelectFile();
 
-            // Display CSV filename in TextBox
+            // Display CSV filename open in TextBox
             txtFilename.Text = openFileDialog1.FileName;
             
             // Create TextFile using DataTable
@@ -55,10 +57,19 @@ namespace Wood_Stocks_App
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            // Instatiate saveFileDialog1
             SaveFile saveFile1 = new SaveFile(saveFileDialog1);
+
+            // Check if X button to close form was clicked
             saveFile1.formClosingClicked = formClosingClicked;
+
+            // Initalise SaveFileDialog
             saveFile1.SaveFileDialog();
+
+            // // Display CSV filename to save in TextBox
             txtFilename.Text = saveFileDialog1.FileName;
+
+            // Create CSV file and save to C: Drive location
             saveFile1.SavetoCSV(dgvStocklist, saveFileDialog1);
         }
 
