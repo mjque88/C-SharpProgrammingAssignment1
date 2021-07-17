@@ -9,10 +9,9 @@ namespace Wood_Stocks_App
     public partial class frmWoodStocksInventory : Form
     {
         // Global Variables
-        string currentCount = "Current Count";
         int incorrectInputCount = 0;
-        int excemptionLimit = 3;
         bool formClosingClicked = false;
+        bool cellValidating = false;
 
 
         public frmWoodStocksInventory()
@@ -103,7 +102,8 @@ namespace Wood_Stocks_App
         {
             // Validate if cells are interger or if cell is empty.
             // There is a limit of 3 input errors and program will close after reaching this limit.
-            int currentCountIndex = dgvStocklist.Columns[currentCount].Index;
+            int currentCountIndex = dgvStocklist.Columns["Current Count"].Index;
+            int excemptionLimit = 3;
 
             if (e.ColumnIndex != dgvStocklist.Columns[currentCountIndex].Index)
             {
@@ -113,27 +113,37 @@ namespace Wood_Stocks_App
             {
                 try
                 {
-                    if (dgvStocklist.CurrentCell.ValueType == typeof(string) || string.IsNullOrEmpty(e.FormattedValue.ToString()))
+                    try
                     {
-                        MessageBox.Show("Enter a whole number greater than or equal to 0.", "Incorrect Input: Letters or Empty Cell");
-                        e.Cancel = true;
-                        dgvStocklist.CurrentCell.Value = 0;
-                        incorrectInputCount++;
+                        if (string.IsNullOrEmpty(e.FormattedValue.ToString()))
+                        {
+                            MessageBox.Show("Enter a whole number greater than or equal to 0.", "Incorrect Input: Empty Cell");
+                            e.Cancel = true;
+                            incorrectInputCount++;
+                            cellValidating = true;
+                        }
+                        else if (Convert.ToInt32(dgvStocklist.CurrentCell.EditedFormattedValue) < 0)
+                        {
+                            MessageBox.Show("Enter a whole number greater than or equal to 0.", "Incorrect Input: Less than Zero");
+                            e.Cancel = true;
+                            incorrectInputCount++;
+                            cellValidating = true;
+                        }
                     }
-                    else if (Convert.ToInt32(dgvStocklist.CurrentCell.EditedFormattedValue) < 0)
+                    catch (FormatException)
                     {
-                        MessageBox.Show("Enter a whole number greater than or equal to 0.", "Incorrect Input: Less than Zero");
-                        e.Cancel = true;
-                        dgvStocklist.CurrentCell.Value = 0;
+                        MessageBox.Show("Enter a whole number greater than or equal to 0. ", "Incorrect Input: Letter or Symbols ");
                         incorrectInputCount++;
+                        cellValidating = true;
                     }
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Enter a whole number greater than or equal to 0. " + ex.Message, "Incorrect Input");
                     incorrectInputCount++;
+                    cellValidating = true;
                 }
-                
+
                 if (incorrectInputCount >= excemptionLimit)
                 {
                     MessageBox.Show("You did not enter a whole number greater than or equal to 0, program will now close.", "Warning: Program Close!");
@@ -148,23 +158,6 @@ namespace Wood_Stocks_App
         {
             // Disable FormatException Message
             e.Cancel = true;
-
-            if ((e.Exception is FormatException))
-            {
-                if (incorrectInputCount >= excemptionLimit)
-                {
-                    MessageBox.Show("You did not enter a whole number greater than or equal to 0, program will now close.", "Warning: Program Close!");
-                    e.Cancel = true;
-                    dgvStocklist.CurrentCell.Value = 0;
-                    Dispose();
-                    Environment.Exit(0);
-                }
-                return;
-            }
-            else
-            {
-                MessageBox.Show("Unknown Error, please contact administrator", "Unknown Error");
-            }
         }
 
         private void dgvStocklist_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -199,8 +192,16 @@ namespace Wood_Stocks_App
 
         private void frmWoodStocksInventory_FormClosing(object sender, FormClosingEventArgs e)
         {
-            // Add option to save if "X" button is pressed
+            // Allow SaveFile class to check if "X" button was pressed
             formClosingClicked = true;
+
+            // Cancel closing and ability to save if invalid cell input
+            if (cellValidating == true)
+            {
+                e.Cancel = true;
+                return;
+            }
+            // Add option to save if "X" button is pressed
             string messageConfirmExit = "Do you want to Save before you Exit the program?";
             string titleConfirmExit = "Save and Exit Program";
             MessageBoxButtons buttonConfirmExit = MessageBoxButtons.YesNoCancel;
