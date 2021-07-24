@@ -28,12 +28,12 @@ namespace Wood_Stocks_App
             file1.SelectFile();
 
             // Display CSV filename open in TextBox
-            txtFilename.Text = openFileDialog1.FileName;
+            txtFilename.Text = file1.fileName;
             
             // Create TextFile using DataTable
             if (file1.openFileDialogResult == DialogResult.OK)
             {
-                dgvStocklist.DataSource = TextFile.CreateDataTable(openFileDialog1.FileName).DataTable;
+                dgvStocklist.DataSource = TextFile.CreateDataTable(file1.fileName).DataTable;
             }
             else
             {
@@ -117,14 +117,16 @@ namespace Wood_Stocks_App
                     {
                         if (string.IsNullOrEmpty(e.FormattedValue.ToString()))
                         {
-                            MessageBox.Show("Enter a whole number greater than or equal to 0.", "Incorrect Input: Empty Cell");
+                            CellValidatingEmptyCell cellValidatingEmptyCell = new CellValidatingEmptyCell();
+                            cellValidatingEmptyCell.errorMessage();
                             e.Cancel = true;
                             incorrectInputCount++;
                             cellValidating = true;
                         }
                         else if (Convert.ToInt32(dgvStocklist.CurrentCell.EditedFormattedValue) < 0)
                         {
-                            MessageBox.Show("Enter a whole number greater than or equal to 0.", "Incorrect Input: Less than Zero");
+                            CellValidatingLessThanZero cellValidatingLessThanZero = new CellValidatingLessThanZero();
+                            cellValidatingLessThanZero.errorMessage();
                             e.Cancel = true;
                             incorrectInputCount++;
                             cellValidating = true;
@@ -132,7 +134,8 @@ namespace Wood_Stocks_App
                     }
                     catch (FormatException)
                     {
-                        MessageBox.Show("Enter a whole number greater than or equal to 0. ", "Incorrect Input: Letter or Symbols ");
+                        CellValidatingLettersOrSymbols cellValidatingLettersOrSymbols = new CellValidatingLettersOrSymbols();
+                        cellValidatingLettersOrSymbols.errorMessage();
                         incorrectInputCount++;
                         cellValidating = true;
                     }

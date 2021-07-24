@@ -29,6 +29,7 @@ namespace Wood_Stocks_App
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmWoodStocksInventory));
             this.lblWelcome = new System.Windows.Forms.Label();
             this.lblOpen = new System.Windows.Forms.Label();
             this.lblSave = new System.Windows.Forms.Label();
@@ -164,6 +165,7 @@ namespace Wood_Stocks_App
             this.Controls.Add(this.lblSave);
             this.Controls.Add(this.lblOpen);
             this.Controls.Add(this.lblWelcome);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(792, 489);
             this.Name = "frmWoodStocksInventory";
             this.Text = "Wood Stocks Inventory";
