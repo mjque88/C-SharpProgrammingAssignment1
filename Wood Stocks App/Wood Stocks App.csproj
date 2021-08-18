@@ -76,6 +76,7 @@
     <Compile Include="CellValidatingMessageBox.cs" />
     <Compile Include="CellValidatingEmptyCell.cs" />
     <Compile Include="OpenFile.cs" />
+    <Compile Include="OpenFileDialog1Result.cs" />
     <Compile Include="SaveFile.cs" />
     <Compile Include="TextFile.cs" />
     <Compile Include="WoodStocksInventory.cs">

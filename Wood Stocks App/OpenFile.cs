@@ -29,7 +29,8 @@ namespace Wood_Stocks_App
             }
             else if (openFileDialog1Result == DialogResult.Cancel)
             {
-                MessageBox.Show("Select a CSV file to open.", "Open Error");
+                OpenFileDialog1Result openFileDialog1Result1 = new OpenFileDialog1Result();
+                openFileDialog1Result1.MessageBoxCancel();             
             }
             fileName = openFile.FileName;
             openFileDialogResult = openFileDialog1Result;
