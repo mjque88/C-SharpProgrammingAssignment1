@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wood Stocks App", "Wood Sto
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "WoodStocksAppSetup", "WoodStocksAppSetup\WoodStocksAppSetup.vdproj", "{C957D8F9-86DB-41A8-B57E-2D9FD574AF3D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WoodStocksAppClassTest", "WoodStocksAppClassTest\WoodStocksAppClassTest.csproj", "{DAC26533-9622-4EEB-964E-539B50FEAFC7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{A77E7C13-B281-4835-A68F-5FB01897F371}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C957D8F9-86DB-41A8-B57E-2D9FD574AF3D}.Debug|Any CPU.ActiveCfg = Debug
 		{C957D8F9-86DB-41A8-B57E-2D9FD574AF3D}.Release|Any CPU.ActiveCfg = Release
+		{DAC26533-9622-4EEB-964E-539B50FEAFC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAC26533-9622-4EEB-964E-539B50FEAFC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAC26533-9622-4EEB-964E-539B50FEAFC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAC26533-9622-4EEB-964E-539B50FEAFC7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

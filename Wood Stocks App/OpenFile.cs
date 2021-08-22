@@ -6,34 +6,36 @@ using System.Windows.Forms;
 
 namespace Wood_Stocks_App
 {
-    class OpenFile
+    public class OpenFile
     {
-        private OpenFileDialog openFile;
+        private OpenFileDialog openFile { get; set;}
 
-        public string fileName;
+        public string fileName { get; set;}
 
-        public DialogResult openFileDialogResult;
+        public string initialDirectory { get; set;}
+
+        public bool restoreDirectory { get; set;}
+
+        public DialogResult openFileDialogResult { get; set; }
 
         public OpenFile(OpenFileDialog openFileDialog)
         { 
             openFile = openFileDialog;
+            openFile.InitialDirectory = "C:\\StockFile";
+            openFile.RestoreDirectory = false;
+            initialDirectory = openFile.InitialDirectory;
+            restoreDirectory = openFile.RestoreDirectory;
         }
 
         public void SelectFile()
         {
             DialogResult openFileDialog1Result = openFile.ShowDialog();
-            if (openFileDialog1Result == DialogResult.OK)
+            openFileDialogResult = openFileDialog1Result;
+            if (openFileDialog1Result == DialogResult.Cancel)
             {
-                openFile.InitialDirectory = "C:\\StockFile";
-                openFile.RestoreDirectory = true;
-            }
-            else if (openFileDialog1Result == DialogResult.Cancel)
-            {
-                OpenFileDialog1Result openFileDialog1Result1 = new OpenFileDialog1Result();
-                openFileDialog1Result1.MessageBoxCancel();             
+                MessageBox.Show("Select a CSV file to open.", "Open Error");
             }
             fileName = openFile.FileName;
-            openFileDialogResult = openFileDialog1Result;
         }
     }
 }
