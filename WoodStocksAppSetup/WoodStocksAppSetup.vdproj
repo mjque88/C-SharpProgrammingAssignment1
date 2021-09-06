@@ -21,6 +21,18 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_26F7D4769A6B4DA2B85BFB717CA74FC6"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_30C9DDE55938430089CC05A725D4C1FF"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_4B87C0C7D0856BFE4E2C996E74BBDAA7"
         "OwnerKey" = "8:_222C11AF94984B53A2EAE6785C62D42D"
         "MsmSig" = "8:_UNDEFINED"
@@ -34,13 +46,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_4B87C0C7D0856BFE4E2C996E74BBDAA7"
+        "OwnerKey" = "8:_222C11AF94984B53A2EAE6785C62D42D"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_222C11AF94984B53A2EAE6785C62D42D"
+        "OwnerKey" = "8:_4B87C0C7D0856BFE4E2C996E74BBDAA7"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -61,6 +73,22 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
+            }
         }
         "Release"
         {
@@ -77,6 +105,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
     }
     "Deployable"
@@ -106,6 +142,46 @@
         }
         "File"
         {
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_26F7D4769A6B4DA2B85BFB717CA74FC6"
+            {
+            "SourcePath" = "8:C:\\Program Files (x86)\\Skillage IT\\WoodStocksAppSetup\\CSS Style Sheets\\stocklist XML Style 2.css"
+            "TargetName" = "8:stocklist XML Style 2.css"
+            "Tag" = "8:"
+            "Folder" = "8:_B7D7E586D6BD4F8FA9D6BC6BCF05C04D"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_30C9DDE55938430089CC05A725D4C1FF"
+            {
+            "SourcePath" = "8:C:\\Program Files (x86)\\Skillage IT\\WoodStocksAppSetup\\CSS Style Sheets\\stocklist XML Style 1.css"
+            "TargetName" = "8:stocklist XML Style 1.css"
+            "Tag" = "8:"
+            "Folder" = "8:_B7D7E586D6BD4F8FA9D6BC6BCF05C04D"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_4B87C0C7D0856BFE4E2C996E74BBDAA7"
             {
             "AssemblyRegister" = "3:1"
@@ -173,6 +249,17 @@
             "Property" = "8:TARGETDIR"
                 "Folders"
                 {
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_B7D7E586D6BD4F8FA9D6BC6BCF05C04D"
+                    {
+                    "Name" = "8:CSS Style Sheets"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_E22563265A7246C69249ED79EA056EB8"
+                        "Folders"
+                        {
+                        }
+                    }
                 }
             }
             "{1525181F-901A-416C-8A58-119130FE478E}:_50293E41F5A244A7AC55284A4C32CD33"
@@ -214,7 +301,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:WoodStocksAppSetup"
         "ProductCode" = "8:{FAE8239A-EEB7-4EAF-92D6-FC499CDB4E8B}"
-        "PackageCode" = "8:{51C5DCB2-61ED-486F-A3FC-880D18B35CF9}"
+        "PackageCode" = "8:{914285FF-169B-4A3E-9A08-1E0EAF231DF8}"
         "UpgradeCode" = "8:{8D5205EC-A9D9-4546-A492-9A1BD28E711B}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"

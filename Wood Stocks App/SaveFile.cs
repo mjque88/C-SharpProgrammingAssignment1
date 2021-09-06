@@ -1,6 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Data;
 using System.IO;
 using System.Windows.Forms;
 
@@ -73,10 +71,16 @@ namespace Wood_Stocks_App
                             }
                         }
                     }
+
                     File.WriteAllLines(saveFileDialog.FileName, csvOutput, System.Text.Encoding.UTF8);
+
                     if (formClosingClicked == true && saveFileDialogResult == DialogResult.OK)
                     {
                         MessageBox.Show("File saved successfully, program will now exit.", "Info");
+
+                        var cleanXMLFiles = new CleanXMLFiles();
+                        cleanXMLFiles.RemoveXMLFiles();
+
                         dataGridView.Dispose();
                         Environment.Exit(0);
                     }
@@ -87,6 +91,7 @@ namespace Wood_Stocks_App
                     else
                     {
                         MessageBox.Show("File saved successfully.", "Info");
+
                     }
 
                 }
