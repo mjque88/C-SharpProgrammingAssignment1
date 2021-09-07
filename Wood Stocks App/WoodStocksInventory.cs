@@ -17,6 +17,8 @@ namespace Wood_Stocks_App
         public frmWoodStocksInventory()
         {
             InitializeComponent();
+            CleanXMLFiles cleanXMLFiles = new CleanXMLFiles();
+            cleanXMLFiles.RemoveXMLFiles();
         }
 
         private void btnOpen_Click(object sender, EventArgs e)
@@ -29,7 +31,16 @@ namespace Wood_Stocks_App
 
             // Display CSV filename open in TextBox
             txtFilename.Text = file1.fileName;
-            
+
+            // Save XML file to @"%localappdata%\WoodStocksApp\XML Files"
+            if (file1.openFileDialogResult == DialogResult.OK)
+            {
+                var stockFileXML = new ConvertToXML(openFileDialog1);
+                stockFileXML.CreateXML();
+                stockFileXML.SaveRawXML();
+            }
+          
+
             // Create TextFile using DataTable
             if (file1.openFileDialogResult == DialogResult.OK)
             {
@@ -204,6 +215,10 @@ namespace Wood_Stocks_App
                 e.Cancel = true;
                 return;
             }
+
+            // Clean up XML Files
+            var cleanXMLFiles = new CleanXMLFiles();
+
             // Add option to save if "X" button is pressed
             string messageConfirmExit = "Do you want to Save before you Exit the program?";
             string titleConfirmExit = "Save and Exit Program";
@@ -216,6 +231,7 @@ namespace Wood_Stocks_App
             }
             else if (resultConfirmExit == DialogResult.No)
             {
+                cleanXMLFiles.RemoveXMLFiles();
                 Dispose();
                 Environment.Exit(0);
             }
@@ -226,5 +242,38 @@ namespace Wood_Stocks_App
                 return;
             }
         }
+
+        private void btnXML1_Click(object sender, EventArgs e)
+        {
+            ConvertToXML stocklistXMLStyle1 = new ConvertToXML(openFileDialog1);
+            if (File.Exists(stocklistXMLStyle1.RawXMLSaveLocation))
+            {
+                stocklistXMLStyle1.CreateXMLStyle1();
+
+                OpenXMLWebBrowser openXMLWebBrowser = new OpenXMLWebBrowser();
+                openXMLWebBrowser.OpenXMLUsingWinOSBrowserXMLStyle1();
+            }
+            else
+            {
+                MessageBox.Show("Open stocklist.csv file to create XML file", "Error: No XML File");
+            }
+        }
+
+        private void btnXML2_Click(object sender, EventArgs e)
+        {
+            ConvertToXML stocklistXMLStyle2 = new ConvertToXML(openFileDialog1);
+            if (File.Exists(stocklistXMLStyle2.RawXMLSaveLocation))
+            {
+                stocklistXMLStyle2.CreateXMLStyle2();
+
+                OpenXMLWebBrowser openXMLWebBrowser = new OpenXMLWebBrowser();
+                openXMLWebBrowser.OpenXMLUsingWinOSBrowserXMLStyle2();
+            }
+            else
+            {
+                MessageBox.Show("Open stocklist.csv file to create XML file", "Error: No XML File");
+            }
+        }
     }
+    
 }

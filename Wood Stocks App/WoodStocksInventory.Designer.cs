@@ -40,6 +40,8 @@ namespace Wood_Stocks_App
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.lblFilename = new System.Windows.Forms.Label();
             this.txtFilename = new System.Windows.Forms.TextBox();
+            this.btnXML1 = new System.Windows.Forms.Button();
+            this.btnXML2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStocklist)).BeginInit();
             this.SuspendLayout();
             // 
@@ -78,7 +80,7 @@ namespace Wood_Stocks_App
             // btnOpen
             // 
             this.btnOpen.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOpen.Location = new System.Drawing.Point(544, 15);
+            this.btnOpen.Location = new System.Drawing.Point(605, 15);
             this.btnOpen.Name = "btnOpen";
             this.btnOpen.Size = new System.Drawing.Size(100, 45);
             this.btnOpen.TabIndex = 3;
@@ -90,7 +92,7 @@ namespace Wood_Stocks_App
             // 
             this.btnSaveCSV.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSaveCSV.AutoSize = true;
-            this.btnSaveCSV.Location = new System.Drawing.Point(664, 15);
+            this.btnSaveCSV.Location = new System.Drawing.Point(715, 15);
             this.btnSaveCSV.Name = "btnSaveCSV";
             this.btnSaveCSV.Size = new System.Drawing.Size(100, 45);
             this.btnSaveCSV.TabIndex = 4;
@@ -109,7 +111,7 @@ namespace Wood_Stocks_App
             this.dgvStocklist.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvStocklist.Location = new System.Drawing.Point(12, 104);
             this.dgvStocklist.Name = "dgvStocklist";
-            this.dgvStocklist.Size = new System.Drawing.Size(752, 334);
+            this.dgvStocklist.Size = new System.Drawing.Size(803, 376);
             this.dgvStocklist.TabIndex = 6;
             this.dgvStocklist.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvStocklist_CellContentClick);
             this.dgvStocklist.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvStocklist_CellEnter);
@@ -147,16 +149,40 @@ namespace Wood_Stocks_App
             this.txtFilename.Location = new System.Drawing.Point(86, 73);
             this.txtFilename.Name = "txtFilename";
             this.txtFilename.ReadOnly = true;
-            this.txtFilename.Size = new System.Drawing.Size(678, 20);
+            this.txtFilename.Size = new System.Drawing.Size(729, 20);
             this.txtFilename.TabIndex = 8;
             this.txtFilename.TabStop = false;
             this.txtFilename.TextChanged += new System.EventHandler(this.txtFilename_TextChanged);
+            // 
+            // btnXML1
+            // 
+            this.btnXML1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnXML1.Location = new System.Drawing.Point(375, 15);
+            this.btnXML1.Name = "btnXML1";
+            this.btnXML1.Size = new System.Drawing.Size(100, 45);
+            this.btnXML1.TabIndex = 9;
+            this.btnXML1.Text = "XML Style &1";
+            this.btnXML1.UseVisualStyleBackColor = true;
+            this.btnXML1.Click += new System.EventHandler(this.btnXML1_Click);
+            // 
+            // btnXML2
+            // 
+            this.btnXML2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnXML2.Location = new System.Drawing.Point(485, 15);
+            this.btnXML2.Name = "btnXML2";
+            this.btnXML2.Size = new System.Drawing.Size(100, 45);
+            this.btnXML2.TabIndex = 10;
+            this.btnXML2.Text = "XML Style &2";
+            this.btnXML2.UseVisualStyleBackColor = true;
+            this.btnXML2.Click += new System.EventHandler(this.btnXML2_Click);
             // 
             // frmWoodStocksInventory
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(776, 450);
+            this.ClientSize = new System.Drawing.Size(827, 492);
+            this.Controls.Add(this.btnXML2);
+            this.Controls.Add(this.btnXML1);
             this.Controls.Add(this.txtFilename);
             this.Controls.Add(this.lblFilename);
             this.Controls.Add(this.dgvStocklist);
@@ -189,6 +215,8 @@ namespace Wood_Stocks_App
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.Label lblFilename;
         private System.Windows.Forms.TextBox txtFilename;
+        private System.Windows.Forms.Button btnXML1;
+        private System.Windows.Forms.Button btnXML2;
     }
 }
 
